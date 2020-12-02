@@ -50,7 +50,6 @@ public class Day01 implements Day {
         }
     }
     public static void main(String[] args) {
-        Day day01 = new Day01();
-        DayRunner.run(1, day01);
+        DayRunner.run(1);
     }
 }

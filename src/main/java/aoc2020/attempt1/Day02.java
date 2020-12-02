@@ -23,6 +23,7 @@ public class Day02 implements Day {
         passwords = stream.map(p::split)
                 .toArray(String[][]::new);
     }
+    //Deprecated
     public boolean isValid(String[] input) {
         int low = Integer.parseInt(input[MIN_VALUE]);
         int high = Integer.parseInt(input[MAX_VALUE]);
@@ -32,7 +33,7 @@ public class Day02 implements Day {
     String regexMaker(String min, String max, String ch) {
         return "[^" + ch + "]*(" + ch + "[^" + ch + "]*){" + min + "," + max + "}";
     }
-    public boolean isValid2(String[] input) {
+    public boolean isValidPart1(String[] input) {
         String regex = regexMaker(input[MIN_VALUE],input[MAX_VALUE],input[CHAR_VALUE]);
         return input[PWD_VALUE].matches(regex);
     }
@@ -42,7 +43,7 @@ public class Day02 implements Day {
     public void part1() {
         System.out.println(
                 Arrays.stream(passwords)
-                    .filter(this::isValid2)
+                    .filter(this::isValidPart1)
                     .count() );
     }
     //REMEMBER to adjust for no 0 index !!!!!

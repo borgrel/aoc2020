@@ -33,10 +33,11 @@ public enum Days {
     public String getFileName() {
         return name().toLowerCase();
     }
-    public Day getDay() throws ClassNotFoundException, IllegalAccessException, InvocationTargetException, InstantiationException {
+    public Day getDay() throws ClassNotFoundException, IllegalAccessException,
+                              InvocationTargetException, InstantiationException {
         String packageName = "aoc2020.attempt1.";
         String classname = name().toLowerCase().replaceFirst("d","D");
-        System.out.println(classname);
-        return (Day) this.getClass().getClassLoader().loadClass(packageName + classname).getConstructors()[0].newInstance();
+        return (Day) this.getClass().getClassLoader().loadClass(packageName + classname)
+                    .getConstructors()[0].newInstance();
     }
 }

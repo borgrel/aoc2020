@@ -30,10 +30,6 @@ class Day02Test {
     String regexMaker(int min, int max, String ch) {
         return "[^" + ch + "]*(" + ch + "[^" + ch + "]*){" + min + "," + max + "}";
     }
-    /*   [2, 8, m, rthcgnxmm]
-    *   [1, 3, d, kdndzd]
-    *   [1, 3, r, lgtr]
-    * */
     @Test
     void textRegex() {
         String regex = "(a.*?){1,3}";
@@ -45,6 +41,5 @@ class Day02Test {
         testRegexHelper("kdndzd",regexMaker(1,3,"d"));
         testRegexHelper("lgtr",regexMaker(1,3,"r"));
         testRegexHelper("kdndzd",regexMaker(2,8,"m"));
-
     }
 }
