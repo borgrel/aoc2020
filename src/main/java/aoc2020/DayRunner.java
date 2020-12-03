@@ -12,7 +12,7 @@ import java.util.stream.Stream;
 
 public class DayRunner {
     public static final String FOLDER = "src/main/resources/aoc2020/";
-    private static Days dayFromInt(int value) {
+    public static Days dayFromInt(int value) {
         return Days.values()[value-1];
     }
     public static void run(int value, Day solution) {
@@ -76,5 +76,14 @@ public class DayRunner {
     }
     public static Stream<String> readInput(Days day) {
         return readFile(day.getFileName() + ".txt");
+    }
+    public static void main(String[] args) {
+        int value = 3;
+        if (args.length > 1) {
+            value = Integer.parseInt(args[1]);
+        }
+        System.out.printf("Running starter for Day%02d\n", value);
+
+        DayRunner.run(value);
     }
 }

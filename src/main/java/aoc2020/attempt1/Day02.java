@@ -62,7 +62,4 @@ public class Day02 implements Day {
                         .map(s -> s[PWD_VALUE])
                         .count() );
     }
-    public static void main(String[] args) {
-        DayRunner.run(2);
-    }
 }

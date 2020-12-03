@@ -49,7 +49,4 @@ public class Day01 implements Day {
             }
         }
     }
-    public static void main(String[] args) {
-        DayRunner.run(1);
-    }
 }
