@@ -1,4 +1,6 @@
-package aoc2020;
+package aoc2020.attempt1;
+
+import aoc2020.Day;
 
 import java.lang.reflect.InvocationTargetException;
 
@@ -35,9 +37,9 @@ public enum Days {
     }
     public Day getDay() throws ClassNotFoundException, IllegalAccessException,
                               InvocationTargetException, InstantiationException {
-        String packageName = "aoc2020.attempt1.";
+        String packageName = this.getClass().getPackageName();
         String classname = name().toLowerCase().replaceFirst("d","D");
-        return (Day) this.getClass().getClassLoader().loadClass(packageName + classname)
+        return (Day) this.getClass().getClassLoader().loadClass(packageName + "." + classname)
                     .getConstructors()[0].newInstance();
     }
 }

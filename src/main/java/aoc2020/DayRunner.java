@@ -1,5 +1,7 @@
 package aoc2020;
 
+import aoc2020.attempt1.Days;
+
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.net.URISyntaxException;
@@ -51,7 +53,7 @@ public class DayRunner {
     }
 
     // ----------++- FILE UTILITIES -++---------------------------------------
-    private static Stream<String> readFile(String filePath) {
+    public static Stream<String> readFile(String filePath) {
         Path path;
         try {
             URL url = DayRunner.class.getResource(filePath);
@@ -78,7 +80,7 @@ public class DayRunner {
         return readFile(day.getFileName() + ".txt");
     }
     public static void main(String[] args) {
-        int value = 3;
+        int value = 4;
         if (args.length > 1) {
             value = Integer.parseInt(args[1]);
         }
