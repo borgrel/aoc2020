@@ -16,6 +16,7 @@ public class Day01 implements Day {
                     .toArray();
     }
 
+    //todo, make more readible by changing to while loop with if(...)low++ else high++
     private int findSum(int start, int end, int goal) {
         for (int index1 = start; index1 < end; index1++) {
             while (end > index1 && values[index1] + values[end] > goal) {

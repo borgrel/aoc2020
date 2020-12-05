@@ -57,11 +57,14 @@ public class DayRunner {
         Path path;
         try {
             URL url = DayRunner.class.getResource(filePath);
-            if (url == null) {
+            path = ((url == null))?
+                    Path.of(filePath):
+                    Path.of(url.toURI());
+/*            if (url == null) {
                 path = Path.of(filePath);
             } else {
                 path = Path.of(url.toURI());
-            }
+            }*/
             return Files.lines(path);
         } catch (URISyntaxException e) {
             System.err.println("File path " + filePath + " generated a syntax exception");
@@ -79,8 +82,9 @@ public class DayRunner {
     public static Stream<String> readInput(Days day) {
         return readFile(day.getFileName() + ".txt");
     }
+
     public static void main(String[] args) {
-        int value = 4;
+        int value = 5;
         if (args.length > 1) {
             value = Integer.parseInt(args[1]);
         }
