@@ -2,19 +2,13 @@ package aoc2020.attempt1;
 
 import aoc2020.Day;
 
-import java.io.StreamTokenizer;
 import java.util.Arrays;
-import java.util.Iterator;
 import java.util.Objects;
-import java.util.StringJoiner;
-import java.util.function.Supplier;
-import java.util.stream.IntStream;
 import java.util.stream.Stream;
-import java.util.stream.StreamSupport;
 
 public class Day06 implements Day {
     private final int GROUP_COUNT = 0;
-    private final int OFFSET = 'a' - 1;
+    private final int OFFSET = 'a' - 1; //-1 because values[0] is holding the group count
     private int[][] values;
 
     private int[] tempArray;

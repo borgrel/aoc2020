@@ -15,27 +15,39 @@ public class Day04 implements Day {
     List<Passport> passports;
 
     enum PassportTags {
-        byr ("Birth Year","^(19[2-9][0-9])|(200[0-2])$"),     // byr (Birth Year) - four digits; at least 1920 and at most 2002.
-        iyr ("Issue Year","^20(1[0-9]|20)$"),               // iyr (Issue Year) - four digits; at least 2010 and at most 2020.
-        eyr ("Expiration Year","^20(2[0-9]|30)$"),          // eyr (Expiration Year) - four digits; at least 2020 and at most 2030.
-        hgt ("Height","^((1[5-8][0-9]|19[0-3])cm)|((59|6[0-9]|7[0-6])in)$"),    //    hgt (Height) - a number followed by either cm or in:
-                                           //"^((1[5-8][0-9]|19[0-3])cm)|((59|6[0-9]|7[0-6])in)$"                                      //         If cm, the number must be at least 150 and at most 193.
-                                                                                 //         If in, the number must be at least 59 and at most 76.
-        hcl ("Hair Color","^#[0-9a-f]{6}$"),                  // hcl (Hair Color) - a # followed by exactly six characters 0-9 or a-f.
-        ecl ("Eye Color","^(amb|blu|brn|gry|grn|hzl|oth)$"),//            ecl (Eye Color) - exactly one of: amb blu brn gry grn hzl oth.
-        pid ("Passport ID","^\\d{9}$"),//            pid (Passport ID) - a nine-digit number, including leading zeroes.
-        cid ("Country ID",null);//    cid (Country ID) - ignored, missing or not.
+            // (Birth Year) - four digits; at least 1920 and at most 2002.
+        byr ("Birth Year",str -> testValue(str,1920,2002)),
+            // (Issue Year) - four digits; at least 2010 and at most 2020.
+        iyr ("Issue Year", str -> testValue(str,2010,2020)),
+            // (Expiration Year) - four digits; at least 2020 and at most 2030.
+        eyr ("Expiration Year", str -> testValue(str,2020,2030)),
+            //  (Height) - a number followed by either cm or in:
+            //         If cm, the number must be at least 150 and at most 193.
+            //         If in, the number must be at least 59 and at most 76.
+        hgt ("Height",Pattern.compile("^((1[5-8][0-9]|19[0-3])cm)|((59|6[0-9]|7[0-6])in)$").asMatchPredicate()),
+            // (Hair Color) - a # followed by exactly six characters 0-9 or a-f.
+        hcl ("Hair Color",Pattern.compile("^#[0-9a-f]{6}$").asMatchPredicate()),
+            // (Eye Color) - exactly one of: amb blu brn gry grn hzl oth.
+        ecl ("Eye Color",Pattern.compile("^(amb|blu|brn|gry|grn|hzl|oth)$").asMatchPredicate()),
+            // (Passport ID) - a nine-digit number, including leading zeroes.
+        pid ("Passport ID",Pattern.compile("^\\d{9}$").asMatchPredicate()),
+            // (Country ID) - ignored, missing or not.
+        cid ("Country ID",str -> true);
 
         String description;
-        Predicate<String> regexPredicate;
+        Predicate<String> testValid;
 
-        PassportTags(String description,String regexPattern) {
+        PassportTags(String description,Predicate<String> testValid) {
             this.description = description;
-            if (regexPattern == null) regexPredicate = (s -> true);
-            else regexPredicate = Pattern.compile(regexPattern).asMatchPredicate();
+            this.testValid = testValid;
         }
         boolean isValid(String value) {
-            return regexPredicate.test(value);
+            return testValid.test(value);
+        }
+        private static boolean testValue(String string, int min, int max) {
+            int value = Integer.parseInt(string);
+            if (value < min) return false;
+            return value <= max;
         }
         static PassportTags parseTag(String input) {
             for (PassportTags check: PassportTags.values()) {
@@ -44,6 +56,7 @@ public class Day04 implements Day {
             }
             return null;
         }
+
         static EnumMap<PassportTags, String> mapPassportTags(int start, int end, List<String[]> list) {
             EnumMap<PassportTags, String> map = new EnumMap<>(PassportTags.class);
             for (int i = start; i < end; i++) {

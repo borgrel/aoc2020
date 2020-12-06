@@ -1,7 +1,6 @@
 package aoc2020.attempt1;
 
 import aoc2020.Day;
-import aoc2020.DayRunner;
 
 import java.util.stream.Stream;
 
