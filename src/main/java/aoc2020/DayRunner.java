@@ -53,24 +53,19 @@ public class DayRunner {
     }
 
     // ----------++- FILE UTILITIES -++---------------------------------------
-    public static Stream<String> readFile(String filePath) {
+    public static Stream<String> readFile(String fileName) {
         Path path;
         try {
-            URL url = DayRunner.class.getResource(filePath);
-            path = ((url == null))?
-                    Path.of(filePath):
-                    Path.of(url.toURI());
-/*            if (url == null) {
-                path = Path.of(filePath);
-            } else {
-                path = Path.of(url.toURI());
-            }*/
+            URL url = DayRunner.class.getResource(fileName);
+            path = (url != null)?
+                        Path.of(url.toURI()):
+                        Path.of(fileName);
             return Files.lines(path);
         } catch (URISyntaxException e) {
-            System.err.println("File path " + filePath + " generated a syntax exception");
+            System.err.println("File path " + fileName + " generated a syntax exception");
             e.printStackTrace();
         } catch (IOException e) {
-            System.err.println("ERROR reading file: " + filePath);
+            System.err.println("ERROR reading file: " + fileName);
             e.printStackTrace();
             throw new IllegalArgumentException("File not found");
         }
@@ -84,7 +79,7 @@ public class DayRunner {
     }
 
     public static void main(String[] args) {
-        int value = 5;
+        int value = 6;
         if (args.length > 1) {
             value = Integer.parseInt(args[1]);
         }

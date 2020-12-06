@@ -3,6 +3,7 @@ package aoc2020.attempt1;
 import aoc2020.Day;
 
 import java.util.Arrays;
+import java.util.IntSummaryStatistics;
 import java.util.stream.Stream;
 
 public class Day05 implements Day {
@@ -12,6 +13,7 @@ public class Day05 implements Day {
     public static final char L = '0';
 
     private int[] seatID;
+    IntSummaryStatistics stats;
 
     //private static final int rowMask = 0b1111111000;
     public int rowNum(int seatID) {
@@ -29,34 +31,30 @@ public class Day05 implements Day {
 
     @Override
     public void convertInput(Stream<String> stream) {
-        seatID = stream.map(s -> s.replace('F',F))
-                .map(s -> s.replace('B',B))
-                .map(s -> s.replace('R',R))
-                .map(s -> s.replace('L',L))
+        seatID = stream.map(s -> s.replaceAll("[BR]","1"))
+                .map(s -> s.replaceAll("[FL]","0"))
                 .mapToInt(s -> Integer.parseInt(s,2))
                 .toArray();
     }
 
-    @Override
+    @Override //951
     public void part1() {
-        Arrays.stream(seatID)
-            .max()
-            .ifPresent(System.out::println);
+        stats = Arrays.stream(seatID)
+            .summaryStatistics();
+
+        System.out.println(stats.getMax());
     }
 
-    @Override
+    @Override //653
     public void part2() {
-        int value = Arrays.stream(seatID)
-                .reduce( (a,b) -> a^b)
-                .orElse(-1);
-        System.out.println(value + 1);
-        
-        int[] sorted = Arrays.stream(seatID)
-                .sorted()
-                .toArray();
-        int offset = sorted[0];
-        int index = value + 1 - offset;
-        int[] test = Arrays.copyOfRange(sorted,index-2,index+2);
-        System.out.println(Arrays.toString(test));
+        long sum = stats.getSum()*2; //multiply sum by 2 instead of dividing to avoid floating pnt arithmetic
+        long count = stats.getCount()+1; //assume sequence is 1 longer because of missing term
+        //S = n(min + max)/2
+        long sequence = (count)*(stats.getMin() + stats.getMax());
+        long result = sequence - sum;
+        if (result%2 == 1)
+            throw new ArithmeticException("This calculation done fucked up!");
+
+        System.out.println(result/2);
     }
 }
