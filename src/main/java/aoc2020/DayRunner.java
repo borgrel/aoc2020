@@ -79,7 +79,7 @@ public class DayRunner {
     }
 
     public static void main(String[] args) {
-        int value = 6;
+        int value = 1;
         if (args.length > 1) {
             value = Integer.parseInt(args[1]);
         }

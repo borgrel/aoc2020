@@ -18,13 +18,16 @@ public class Day01 implements Day {
 
     //todo, make more readible by changing to while loop with if(...)low++ else high++
     private int findSum(int start, int end, int goal) {
-        for (int index1 = start; index1 < end; index1++) {
-            while (end > index1 && values[index1] + values[end] > goal) {
-                end--;
-            }
-            if (values[index1] + values[end] == goal) {
-                return values[index1];
-            }
+        int index1 = start;
+        int index2 = end;
+        while (index1 < index2) {
+            int sum = values[index1] + values[index2];
+
+            if (sum < goal)
+                index1++;
+            else if (sum > goal)
+                index2--;
+            else return values[index1];
         }
         return -1;
     }
