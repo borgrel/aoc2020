@@ -8,7 +8,7 @@ import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class Day05Test {
+class Day05Test implements Tester {
     static final String[] test = new String[]{
             "BFFFBBFRRR",
             "FFFBBBFRRR",
@@ -20,8 +20,8 @@ class Day05Test {
         FFFBBBFRRR: row 14, column 7, seat ID 119.
         BBFFBBFRLL: row 102, column 4, seat ID 820.
     */
-    @Test
-    void convertInput() {
+    @Override
+    public void testExamples() {
         Day05 day05 = new Day05();
         day05.convertInput(Arrays.stream(test));
         day05.printBoardingPasses();

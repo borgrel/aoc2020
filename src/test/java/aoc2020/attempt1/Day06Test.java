@@ -6,7 +6,7 @@ import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class Day06Test {
+class Day06Test implements Tester {
     String[] test = new String[]{
             "abc", "",
             "a", "b", "c", "",
@@ -15,8 +15,8 @@ class Day06Test {
             "b"
     };
 
-    @Test
-    void convertInput() {
+    @Override
+    public void testExamples() {
         Day06 day = new Day06();
         day.convertInput(Arrays.stream(test));
         day.part1();

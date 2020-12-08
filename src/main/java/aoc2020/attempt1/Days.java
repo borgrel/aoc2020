@@ -35,11 +35,12 @@ public enum Days {
     public String getFileName() {
         return name().toLowerCase();
     }
-    public Day getDay() throws ClassNotFoundException, IllegalAccessException,
-                              InvocationTargetException, InstantiationException {
-        String packageName = this.getClass().getPackageName();
-        String classname = name().toLowerCase().replaceFirst("d","D");
-        return (Day) this.getClass().getClassLoader().loadClass(packageName + "." + classname)
-                    .getConstructors()[0].newInstance();
+    public String getClassName() {
+        return getClass().getPackageName() + "." +
+                name().toLowerCase().replaceFirst("d","D");
+    }
+
+    public static Days dayFromInt(int value) {
+        return Days.values()[value-1];
     }
 }

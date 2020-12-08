@@ -6,7 +6,7 @@ import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class Day02Test {
+class Day02Test implements Tester {
 
     /*
     1-3 a: abcde
@@ -15,8 +15,8 @@ class Day02Test {
 
     2 are valid
     */
-    @Test
-    void convertInput() {
+    @Override
+    public void testExamples() {
         String[] example = new String[]{"1-3 a: abcde","1-3 b: cdefg","2-9 c: ccccccccc"};
 
         Day02 daytest = new Day02();
@@ -30,7 +30,7 @@ class Day02Test {
     String regexMaker(int min, int max, String ch) {
         return "[^" + ch + "]*(" + ch + "[^" + ch + "]*){" + min + "," + max + "}";
     }
-    @Test
+    //@Test
     void textRegex() {
         String regex = "(a.*?){1,3}";
         testRegexHelper("abcde",regex);

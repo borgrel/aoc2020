@@ -6,7 +6,7 @@ import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class Day07Test {
+class Day07Test implements Tester {
     static String[] test = new String[]{
             "light red bags contain 1 bright white bag, 2 muted yellow bags.",
             "dark orange bags contain 3 bright white bags, 4 muted yellow bags.",
@@ -29,8 +29,8 @@ class Day07Test {
             "dark violet bags contain no other bags."
     };
 
-    @Test
-    void convertInput() {
+    @Override
+    public void testExamples() {
         Day07 day = new Day07();
         day.convertInput(Arrays.stream(test));
         day.part1();

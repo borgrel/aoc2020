@@ -7,7 +7,7 @@ import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class Day03Test {
+class Day03Test implements Tester {
     final String[] testInput = new String[]{
         "..##.......",
         "#...#...#..",
@@ -20,8 +20,9 @@ class Day03Test {
         "#.##...#...",
         "#...##....#",
         ".#..#...#.#"  };
-    @Test
-    void convertInput() {
+
+    @Override
+    public void testExamples() {
         Day day = new Day03();
         day.convertInput(Arrays.stream(testInput));
         day.part1();

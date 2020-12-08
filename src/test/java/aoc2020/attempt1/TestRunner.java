@@ -1,0 +1,18 @@
+package aoc2020.attempt1;
+
+import org.junit.jupiter.api.Test;
+
+public class TestRunner {
+    static void run(Tester tester) {
+
+    }
+    @Test
+    void testRunner() {
+        Tester test = new Day08Test();
+
+        System.out.printf("Running tester for %s%s", test.getClass().getName(), System.lineSeparator());
+
+        test.testExamples();
+    }
+}
+

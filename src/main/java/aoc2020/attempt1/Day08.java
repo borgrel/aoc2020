@@ -1,12 +1,10 @@
 package aoc2020.attempt1;
 
 import aoc2020.Day;
-import aoc2020.DayRunner;
 
 import java.util.ArrayDeque;
 import java.util.Arrays;
 import java.util.Deque;
-import java.util.Set;
 import java.util.function.Consumer;
 import java.util.regex.Pattern;
 import java.util.stream.Stream;
@@ -129,7 +127,6 @@ public class Day08 implements Day {
 
     @Override
     public void part1() {
-        System.out.println(program.completed());
         attemptRun(program,true);
         System.out.println(program.accumulator());
     }
@@ -140,7 +137,7 @@ public class Day08 implements Day {
             if (repeated[program.index()] > 0) return false;
             repeated[program.index()]++;
             if (firstRun && (program.currentInstruction() == Instruc.JMP
-                    || program.currentInstruction() == Instruc.JMP)) {
+                    || program.currentInstruction() == Instruc.NOP)) {
                 locations.add(program.index());
             }
             program.performInstruc();

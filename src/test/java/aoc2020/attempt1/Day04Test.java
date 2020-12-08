@@ -8,7 +8,7 @@ import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class Day04Test {
+class Day04Test implements Tester {
     static String[] testInput = new String[]{
             "ecl:gry pid:860033327 eyr:2020 hcl:#fffffd",
             "byr:1937 iyr:2017 cid:147 hgt:183cm",
@@ -49,8 +49,8 @@ class Day04Test {
         day.part1();
         day.part2();
     }
-    @Test
-    void runTests() {
+    @Override
+    public void testExamples() {
         testValidity(testInput);
         testValidity(part2Invalid);
         testValidity(part2Valid);
@@ -78,7 +78,7 @@ class Day04Test {
     public static void test(Day04.PassportTags tag, String value) {
         System.out.println(tag.name() + " tests " + value + " as " + tag.isValid(value));
     }
-    @Test
+    //@Test
     void individualTests() {
         test(Day04.PassportTags.byr, "2002");
         test(Day04.PassportTags.byr, "2003");
@@ -113,4 +113,6 @@ class Day04Test {
         test(Day04.PassportTags.byr, "1980");
         test(Day04.PassportTags.hcl, "#623a2f");
     }
+
+
 }

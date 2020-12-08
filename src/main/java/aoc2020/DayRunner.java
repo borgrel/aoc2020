@@ -14,27 +14,6 @@ import java.util.stream.Stream;
 
 public class DayRunner {
     public static final String FOLDER = "src/main/resources/aoc2020/";
-    public static Days dayFromInt(int value) {
-        return Days.values()[value-1];
-    }
-    public static void run(int value, Day solution) {
-        final Days day = dayFromInt(value);
-        Stream<String> input = readInput(day);
-        solution.convertInput(input);
-        solution.part1();
-        solution.part2();
-    }
-
-    public static void run(int value) {
-        Days days = dayFromInt(value);
-        try {
-            Day solution = days.getDay();
-            run(value, solution);
-        } catch (ClassNotFoundException | IllegalAccessException | InvocationTargetException | InstantiationException e) {
-            System.err.println("Error invoking and instantiating " + days.name() + " via reflection");
-            e.printStackTrace();
-        }
-    }
 
     // ----------++- CONSOLE UTILITIES -++---------------------------------------
     public static <T> void printArray(T[][] input) {
@@ -72,19 +51,46 @@ public class DayRunner {
         return null;
     }
     public static Stream<String> readInput(int day) {
-        return readInput(dayFromInt(day));
+        return readInput(Days.dayFromInt(day));
     }
     public static Stream<String> readInput(Days day) {
         return readFile(day.getFileName() + ".txt");
     }
 
-    public static void main(String[] args) {
-        int value = 8;
-        if (args.length > 1) {
-            value = Integer.parseInt(args[1]);
+    // ----------++- DYNAMIC START UTILITIES -++---------------------------------------
+    public static void run(int value, Day solution) {
+        final Days day = Days.dayFromInt(value);
+        Stream<String> input = readInput(day);
+        solution.convertInput(input);
+        solution.part1();
+        solution.part2();
+    }
+    public static Day invokeDay(int value) {
+        String className = Days.dayFromInt(value).getClassName();
+        try {
+            return invoke(className);
+        } catch (ClassNotFoundException | IllegalAccessException | InvocationTargetException | InstantiationException e) {
+            System.err.println("Error invoking and instantiating " + className + " via reflection");
+            e.printStackTrace();
+            throw new IllegalArgumentException("Unable to locate .class for '" + className + "'");
         }
-        System.out.printf("Running starter for Day%02d\n", value);
+    }
 
-        DayRunner.run(value);
+    public static <T> T invoke(String className) throws ClassNotFoundException, IllegalAccessException,
+                                            InvocationTargetException, InstantiationException {
+        @SuppressWarnings("unchecked")
+        T t = (T)DayRunner.class.getClassLoader().loadClass(className).getConstructors()[0].newInstance();
+        return t;
+    }
+
+    public static void main(String[] args) {
+        int dayNum = 8;
+        if (args.length > 1) {
+            dayNum = Integer.parseInt(args[1]);
+        }
+        System.out.printf("Running starter for Day%02d%s", dayNum, System.lineSeparator());
+
+        Day day = DayRunner.invokeDay(dayNum);
+        DayRunner.run(dayNum, day);
     }
 }
