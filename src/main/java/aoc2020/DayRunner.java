@@ -84,7 +84,7 @@ public class DayRunner {
     }
 
     public static void main(String[] args) {
-        int dayNum = 8;
+        int dayNum = 10;
         if (args.length > 1) {
             dayNum = Integer.parseInt(args[1]);
         }
