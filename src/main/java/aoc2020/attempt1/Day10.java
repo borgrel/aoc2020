@@ -2,7 +2,9 @@ package aoc2020.attempt1;
 
 import aoc2020.Day;
 
+import java.util.ArrayDeque;
 import java.util.Arrays;
+import java.util.Deque;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 

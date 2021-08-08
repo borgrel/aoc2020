@@ -8,8 +8,15 @@ import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
+import java.util.function.BiConsumer;
+import java.util.function.BinaryOperator;
+import java.util.function.Function;
+import java.util.function.Supplier;
+import java.util.stream.Collector;
 import java.util.stream.Stream;
 
 public class DayRunner {
@@ -46,7 +53,7 @@ public class DayRunner {
         } catch (IOException e) {
             System.err.println("ERROR reading file: " + fileName);
             e.printStackTrace();
-            throw new IllegalArgumentException("File not found");
+            throw new IllegalArgumentException("File not found", e);
         }
         return null;
     }
@@ -55,6 +62,37 @@ public class DayRunner {
     }
     public static Stream<String> readInput(Days day) {
         return readFile(day.getFileName() + ".txt");
+    }
+
+    static class ToTextBlock implements Collector<String, List<List<String>>,Stream<List<String>>> {
+        @Override
+        public Supplier<List<List<String>>> supplier() {
+            //need to wrap in new ArrayList because List.of() is immutable
+            return () -> new ArrayList<>(List.of(new ArrayList<>()));
+        }
+        @Override
+        public BiConsumer<List<List<String>>, String> accumulator() {
+            return (list, string) -> {
+                if (string.isEmpty()) list.add(new ArrayList<>());
+                else list.get(list.size()-1).add(string);
+            };
+        }
+        //this should never be called because Characteristics.CONCURRENT is not set
+        @Override
+        public BinaryOperator<List<List<String>>> combiner() {
+            return null;
+        }
+        @Override
+        public Function<List<List<String>>, Stream<List<String>>> finisher() {
+            return List::stream;
+        }
+        @Override
+        public Set<Characteristics> characteristics() {
+            return Set.of();
+        }
+    }
+    public static ToTextBlock toTextBlock() {
+        return new ToTextBlock();
     }
 
     // ----------++- DYNAMIC START UTILITIES -++---------------------------------------
@@ -84,7 +122,7 @@ public class DayRunner {
     }
 
     public static void main(String[] args) {
-        int dayNum = 10;
+        int dayNum = 11;
         if (args.length > 1) {
             dayNum = Integer.parseInt(args[1]);
         }

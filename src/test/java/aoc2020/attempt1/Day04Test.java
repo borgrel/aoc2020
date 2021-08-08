@@ -51,6 +51,9 @@ class Day04Test implements Tester {
     }
     @Override
     public void testExamples() {
+        Arrays.stream(testInput)
+                        .collect(DayRunner.toTextBlock())
+                        .forEach(System.out::println);
         testValidity(testInput);
         testValidity(part2Invalid);
         testValidity(part2Valid);

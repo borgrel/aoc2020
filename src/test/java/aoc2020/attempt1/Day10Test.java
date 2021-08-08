@@ -19,11 +19,9 @@ public class Day10Test implements Tester {
         Day10 day = new Day10();
         day.convertInput(Arrays.stream(testInput));
         day.part1();
-        //day.part1a2();
         day.part2();
         day.convertInput(Arrays.stream(testInput2));
         day.part1();
-        //day.part1a2();
         day.part2();
     }
 }

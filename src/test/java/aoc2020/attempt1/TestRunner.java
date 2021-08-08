@@ -8,7 +8,7 @@ public class TestRunner {
     }
     @Test
     void testRunner() {
-        Tester test = new Day10Test();
+        Tester test = new Day04Test();
 
         System.out.printf("Running tester for %s%s", test.getClass().getName(), System.lineSeparator());
 
