@@ -1,6 +1,7 @@
 package aoc2020;
 
-import aoc2020.attempt1.Days;
+import aoctools.Day;
+import aoctools.Days;
 
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
@@ -8,15 +9,7 @@ import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Set;
-import java.util.function.BiConsumer;
-import java.util.function.BinaryOperator;
-import java.util.function.Function;
-import java.util.function.Supplier;
-import java.util.stream.Collector;
+import java.util.*;
 import java.util.stream.Stream;
 
 public class DayRunner {
@@ -39,14 +32,16 @@ public class DayRunner {
     }
 
     // ----------++- FILE UTILITIES -++---------------------------------------
-    public static Stream<String> readFile(String fileName) {
+    public static Optional<Stream<String>> readFile(String fileName) {
         Path path;
         try {
             URL url = DayRunner.class.getResource(fileName);
             path = (url != null)?
                         Path.of(url.toURI()):
                         Path.of(fileName);
-            return Files.lines(path);
+
+            return Optional.of(Files.lines(path));
+
         } catch (URISyntaxException e) {
             System.err.println("File path " + fileName + " generated a syntax exception");
             e.printStackTrace();
@@ -55,56 +50,36 @@ public class DayRunner {
             e.printStackTrace();
             throw new IllegalArgumentException("File not found", e);
         }
-        return null;
+        return Optional.empty();
     }
-    public static Stream<String> readInput(int day) {
+    public static Optional<Stream<String>> readInput(int day) {
         return readInput(Days.dayFromInt(day));
     }
-    public static Stream<String> readInput(Days day) {
+    public static Optional<Stream<String>> readInput(Days day) {
         return readFile(day.getFileName() + ".txt");
     }
 
-    static class ToTextBlock implements Collector<String, List<List<String>>,Stream<List<String>>> {
-        @Override
-        public Supplier<List<List<String>>> supplier() {
-            //need to wrap in new ArrayList because List.of() is immutable
-            return () -> new ArrayList<>(List.of(new ArrayList<>()));
-        }
-        @Override
-        public BiConsumer<List<List<String>>, String> accumulator() {
-            return (list, string) -> {
-                if (string.isEmpty()) list.add(new ArrayList<>());
-                else list.get(list.size()-1).add(string);
-            };
-        }
-        //this should never be called because Characteristics.CONCURRENT is not set
-        @Override
-        public BinaryOperator<List<List<String>>> combiner() {
-            return null;
-        }
-        @Override
-        public Function<List<List<String>>, Stream<List<String>>> finisher() {
-            return List::stream;
-        }
-        @Override
-        public Set<Characteristics> characteristics() {
-            return Set.of();
-        }
-    }
-    public static ToTextBlock toTextBlock() {
-        return new ToTextBlock();
-    }
 
     // ----------++- DYNAMIC START UTILITIES -++---------------------------------------
-    public static void run(int value, Day solution) {
-        final Days day = Days.dayFromInt(value);
-        Stream<String> input = readInput(day);
-        solution.convertInput(input);
-        solution.part1();
-        solution.part2();
+    public static void run(int value) {
+        final Days dayNum = Days.dayFromInt(value);
+        final Day solution = DayRunner.invokeDay(dayNum);
+
+        Optional<Stream<String>> input = readInput(dayNum);
+        if (input.isPresent()) {
+            solution.convertInput(input.get());
+            solution.part1();
+            solution.part2();
+        } else {
+            System.out.printf("The Day%02d does not have a text file to read.%n", value);
+        }
     }
+
     public static Day invokeDay(int value) {
-        String className = Days.dayFromInt(value).getClassName();
+        return invokeDay(Days.dayFromInt(value));
+    }
+    public static Day invokeDay(Days dayNum) {
+        String className = dayNum.getClassName();
         try {
             return invoke(className);
         } catch (ClassNotFoundException | IllegalAccessException | InvocationTargetException | InstantiationException e) {
@@ -122,13 +97,12 @@ public class DayRunner {
     }
 
     public static void main(String[] args) {
-        int dayNum = 11;
+        int dayNum = 17;
         if (args.length > 1) {
             dayNum = Integer.parseInt(args[1]);
         }
         System.out.printf("Running starter for Day%02d%s", dayNum, System.lineSeparator());
 
-        Day day = DayRunner.invokeDay(dayNum);
-        DayRunner.run(dayNum, day);
+        DayRunner.run(dayNum);
     }
 }

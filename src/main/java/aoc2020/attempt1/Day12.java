@@ -1,15 +1,11 @@
 package aoc2020.attempt1;
 
-import aoc2020.Day;
+import aoctools.Day;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.RequiredArgsConstructor;
 import lombok.Value;
 
-import java.util.function.Consumer;
-import java.util.function.Function;
 import java.util.function.IntConsumer;
-import java.util.function.IntFunction;
 import java.util.regex.Pattern;
 import java.util.stream.Stream;
 

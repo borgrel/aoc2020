@@ -1,12 +1,6 @@
 package aoc2020.attempt1;
 
-import aoc2020.Day;
-import aoc2020.DayRunner;
-import org.junit.jupiter.api.Test;
-
 import java.util.Arrays;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class Day05Test implements Tester {
     static final String[] test = new String[]{

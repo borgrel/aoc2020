@@ -4,15 +4,17 @@ import aoctools.Day;
 
 import java.util.Arrays;
 
-public class Day12Test implements Tester {
+public class Day17Test implements Tester {
     final String[] testInput = new String[]{
-            "",
-            ""
+            ".#.",
+            "..#",
+            "###"
     };
+
 
     @Override
     public void testExamples() {
-        Day day = new Day12();
+        Day day = new Day17();
         day.convertInput(Arrays.stream(testInput));
         day.part1();
         day.part2();

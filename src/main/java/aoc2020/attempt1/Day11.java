@@ -1,11 +1,8 @@
 package aoc2020.attempt1;
 
-import aoc2020.Day;
-import aoc2020.DayRunner;
-import one.util.streamex.StreamEx;
+import aoctools.Day;
 
 import java.util.Arrays;
-import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -47,7 +44,7 @@ public class Day11 implements Day {
                 .toArray(Seat[][]::new);
     }
 
-    public int checkAdjecent(Seat[][] layout, int indexX, int indexY) {
+    public int checkAdjacent(Seat[][] layout, int indexX, int indexY) {
         int count = 0;
         for (int x=indexX-1; x<=indexX+1; x++) {
             if (x < 0 || x >= layout.length) continue;
@@ -62,9 +59,9 @@ public class Day11 implements Day {
     public Seat applyRules(Seat[][] layout, int indexX, int indexY) {
         switch (layout[indexX][indexY]) {
             case FLOOR: return Seat.FLOOR;
-            case SEAT: return (checkAdjecent(layout, indexX, indexY) ==0 )?
+            case SEAT: return (checkAdjacent(layout, indexX, indexY) ==0 )?
                     Seat.OCCUPIED:Seat.SEAT;
-            case OCCUPIED: return (checkAdjecent(layout, indexX, indexY) >=4 )?
+            case OCCUPIED: return (checkAdjacent(layout, indexX, indexY) >=4 )?
                     Seat.SEAT:Seat.OCCUPIED;
         }
         return null;

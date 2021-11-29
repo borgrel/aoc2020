@@ -1,4 +1,4 @@
-package aoc2020;
+package aoctools;
 
 import java.util.*;
 

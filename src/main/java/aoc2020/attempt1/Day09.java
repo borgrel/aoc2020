@@ -1,12 +1,11 @@
 package aoc2020.attempt1;
 
-import aoc2020.Day;
+import aoctools.Day;
 
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.LongSummaryStatistics;
 import java.util.Set;
-import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 public class Day09 implements Day {

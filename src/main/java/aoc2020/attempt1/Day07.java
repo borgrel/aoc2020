@@ -1,12 +1,10 @@
 package aoc2020.attempt1;
 
-import aoc2020.Day;
+import aoctools.Day;
 import org.javatuples.Pair;
 
 import java.util.*;
 import java.util.function.Consumer;
-import java.util.function.Predicate;
-import java.util.function.Supplier;
 import java.util.regex.Pattern;
 import java.util.stream.Stream;
 
@@ -83,10 +81,6 @@ public class Day07 implements Day {
                 .takeWhile(str -> !mustProcess.isEmpty())
                 .count();
         System.out.println(value);
-
-        /*bagDependencies.get(SOURCE).stream()
-                .flatMap()*/
-
     }
 
     public int countBags(String current) {

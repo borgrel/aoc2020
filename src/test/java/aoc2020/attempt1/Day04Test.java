@@ -1,12 +1,8 @@
 package aoc2020.attempt1;
 
-import aoc2020.Day;
-import aoc2020.DayRunner;
-import org.junit.jupiter.api.Test;
+import aoctools.Day;
 
 import java.util.Arrays;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class Day04Test implements Tester {
     static String[] testInput = new String[]{
@@ -51,9 +47,6 @@ class Day04Test implements Tester {
     }
     @Override
     public void testExamples() {
-        Arrays.stream(testInput)
-                        .collect(DayRunner.toTextBlock())
-                        .forEach(System.out::println);
         testValidity(testInput);
         testValidity(part2Invalid);
         testValidity(part2Valid);

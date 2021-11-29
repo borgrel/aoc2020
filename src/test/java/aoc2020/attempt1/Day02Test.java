@@ -30,7 +30,6 @@ class Day02Test implements Tester {
     String regexMaker(int min, int max, String ch) {
         return "[^" + ch + "]*(" + ch + "[^" + ch + "]*){" + min + "," + max + "}";
     }
-    //@Test
     void textRegex() {
         String regex = "(a.*?){1,3}";
         testRegexHelper("abcde",regex);

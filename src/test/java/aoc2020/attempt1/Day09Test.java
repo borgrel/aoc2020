@@ -1,7 +1,5 @@
 package aoc2020.attempt1;
 
-import aoc2020.Day;
-
 import java.util.Arrays;
 
 public class Day09Test implements Tester {

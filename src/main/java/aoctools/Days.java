@@ -1,8 +1,4 @@
-package aoc2020.attempt1;
-
-import aoc2020.Day;
-
-import java.lang.reflect.InvocationTargetException;
+package aoctools;
 
 public enum Days {
     DAY01,
@@ -32,11 +28,12 @@ public enum Days {
     DAY25,
     OUTPUT;
 
+    private static final String PACKAGE_NAME = "aoc2020.attempt1";
     public String getFileName() {
         return name().toLowerCase();
     }
     public String getClassName() {
-        return getClass().getPackageName() + "." +
+        return PACKAGE_NAME + "." +
                 name().toLowerCase().replaceFirst("d","D");
     }
 

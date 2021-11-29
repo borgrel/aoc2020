@@ -1,6 +1,6 @@
 package aoc2020.attempt1;
 
-import aoc2020.Day;
+import aoctools.Day;
 
 import java.util.ArrayDeque;
 import java.util.Arrays;
